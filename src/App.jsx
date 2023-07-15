@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import {
   useGLTF,
   ContactShadows,
@@ -9,7 +9,7 @@ import {
 import { HexColorPicker } from "react-colorful";
 import { proxy, useSnapshot } from "valtio";
 import Menu from "./components/Menu";
-
+import Header from "./components/Header";
 
 const state = proxy({
   current: null,
@@ -119,9 +119,14 @@ function Shoe() {
 function Picker() {
   const snap = useSnapshot(state);
   return (
-    <div className="absolute top-10 left-40">
-      <div style={{ display: snap.current ? "block" : "none" }} className="space-y-1">
-        <h1 className="capitalize font-semibold text-3xl font-poppins">{snap.current} Color</h1>
+    <div className="absolute bottom-2 right-2 lg:bottom-10 lg:right-20 overflow-hidden">
+      <div
+        style={{ display: snap.current ? "block" : "none" }}
+        className="space-y-1"
+      >
+        <h1 className="capitalize font-semibold text-3xl font-poppins">
+          {snap.current} Color
+        </h1>
         <HexColorPicker
           color={snap.items[snap.current]}
           onChange={(color) => (state.items[snap.current] = color)}
@@ -132,12 +137,17 @@ function Picker() {
 }
 
 export default function App() {
-
   const canvasRef = useRef(null);
 
   return (
     <div className="relative w-full h-screen bg-gradient-to-b from-violet-50 to-pink-50">
-      <Canvas ref={canvasRef} shadows camera={{ position: [0, 0, 4], fov: 45 }} gl={{preserveDrawingBuffer: true}}>
+      <Header />
+      <Canvas
+        ref={canvasRef}
+        shadows
+        camera={{ position: [0, 0, 4], fov: 45 }}
+        gl={{ preserveDrawingBuffer: true }}
+      >
         <ambientLight intensity={0.7} />
         <spotLight
           intensity={0.5}
