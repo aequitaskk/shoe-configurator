@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Menu = ({ canvasRef }) => {
   const [showModal, setShowModal] = useState(false);
+  const [input, setInput] = useState("");
 
   const handleDownload = () => {
     const canvas = canvasRef.current;
@@ -38,16 +39,21 @@ const Menu = ({ canvasRef }) => {
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="absolute bottom-20 w-80 h-32 -translate-x-[92px] bg-white/50 backdrop-filter backdrop-blur-sm rounded-lg shadow-lg cursor-default px-4">
+            <div className="absolute bottom-20 w-80 h-40 -translate-x-[92px] bg-white/50 backdrop-filter backdrop-blur-sm rounded-lg shadow-lg cursor-default px-4">
               <p className="font-poppins font-semibold text-neutral-800 py-1">
                 Ask AI for design
               </p>
               <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 name="textarea"
                 cols="30"
                 rows="3"
-                className="opacity-60 outline-none mb-4 w-full px-2"
+                className="opacity-60 outline-none mb-1 w-full px-2"
               />
+              <button className="text-white bg-slate-800 rounded-md py-1 px-2 font-medium flex mx-auto">
+                Generate
+              </button>
             </div>
           </motion.div>
         )}
