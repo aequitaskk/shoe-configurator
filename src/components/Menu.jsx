@@ -28,6 +28,7 @@ const Menu = ({ canvasRef }) => {
 
 
   const generateImage = async () => {
+
     const response = await openai.createImage({
       prompt: input,
       n: 1,
@@ -37,6 +38,9 @@ const Menu = ({ canvasRef }) => {
 
     const generatedImageUrl = response.data.data[0].url;
     console.log(generatedImageUrl);
+
+
+    setInput("");
   };
 
 
