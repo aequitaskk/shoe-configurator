@@ -3,9 +3,20 @@ import { IoSparklesSharp } from "react-icons/io5";
 import { IoMdDownload } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Menu = () => {
+const Menu = ({ canvasRef }) => {
   const [showModal, setShowModal] = useState(false);
-  console.log(showModal);
+
+  const handleDownload = () => {
+    const canvas = canvasRef.current;
+
+    if (canvas) {
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "canvas-image.png";
+      link.click();
+    }
+  };
 
   return (
     <div className="z-10 fixed bottom-10 left-[35%] lg:left-[45%]">
@@ -14,7 +25,10 @@ const Menu = () => {
           className="hover:opacity-60 transition-opacity duration-150 ease-in-out"
           onClick={() => setShowModal(!showModal)}
         />
-        <IoMdDownload className="transform translate-y-1 hover:opacity-60 transition-opacity duration-150 ease-in-out" />
+        <IoMdDownload
+          onClick={handleDownload}
+          className="transform translate-y-1 hover:opacity-60 transition-opacity duration-150 ease-in-out"
+        />
       </div>
       <AnimatePresence>
         {showModal && (

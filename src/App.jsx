@@ -132,9 +132,12 @@ function Picker() {
 }
 
 export default function App() {
+
+  const canvasRef = useRef(null);
+
   return (
     <div className="relative w-full h-screen bg-gradient-to-b from-violet-50 to-pink-50">
-      <Canvas shadows camera={{ position: [0, 0, 4], fov: 45 }}>
+      <Canvas ref={canvasRef} shadows camera={{ position: [0, 0, 4], fov: 45 }} gl={{preserveDrawingBuffer: true}}>
         <ambientLight intensity={0.7} />
         <spotLight
           intensity={0.5}
@@ -154,7 +157,7 @@ export default function App() {
         />
         <OrbitControls />
       </Canvas>
-      <Menu />
+      <Menu canvasRef={canvasRef} />
       <Picker />
     </div>
   );
